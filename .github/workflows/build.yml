@@ -1,0 +1,44 @@
+name: Build Electron App
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+
+jobs:
+  release:
+    runs-on: windows-latest
+
+    steps:
+      # Step 1: Checkout code
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      # Step 2: Set up Node.js
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 20
+
+      # Step 3: Install dependencies
+      - name: Install dependencies
+        run: npm install
+
+      # Step 4: Build Electron app
+      - name: Build Electron app
+        run: npm run build
+
+      # Step 5: Package for Linux
+      - name: Package for Windows
+        run: |
+          npx electron-builder --win
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      # Step 6: Upload artifacts
+      - name: Upload  Windows artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: windows-Builds
+          path: dist/

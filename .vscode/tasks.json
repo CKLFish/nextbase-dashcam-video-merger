@@ -1,0 +1,21 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+      {
+        "label": "env",
+        "type": "shell",
+        "command": "fnm env",
+        "problemMatcher": [],
+        "group": {
+          "kind": "none",
+          "isDefault": true
+        }
+      },
+      {
+        "label": "Load FNM Environment",
+        "type": "shell",
+        "command": "fnm use 22", 
+        "problemMatcher": []
+      }
+    ]
+  }
